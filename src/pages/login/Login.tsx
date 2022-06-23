@@ -1,56 +1,78 @@
-import React, { ChangeEvent, useState } from "react";
-import { useAppDispatch } from "../../app/hooks";
-import { loginAsync } from "../../features/auth/authSlice";
+import { useRef, useState, useEffect, SetStateAction } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../features/apis/Auth";
 
 const Login = () => {
-  const dispatch = useAppDispatch();
-  const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
-  });
+  const emailRef = useRef<HTMLInputElement>(null);
+  const errRef = useRef<HTMLParagraphElement>(null);
+  const [email, setEmail] = useState("jure@gmail.com");
+  const [password, setPassword] = useState("12345678");
 
-  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+
+  const [login, { isError, isSuccess }] = useLoginMutation();
+
+  useEffect(() => {
+    emailRef.current?.focus();
+  }, []);
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    dispatch(loginAsync(inputs));
+    await login({ email, password });
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setInputs({
-      ...inputs,
-      [e.target.name]: e.target.value,
-    });
-  };
+  useEffect(() => {
+    if (isSuccess) {
+      setEmail("");
+      setPassword("");
+      navigate("/welcome");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      errRef.current?.focus();
+    }
+  }, [isError, navigate]);
+
+  const handleEmailInput = (e: { target: { value: SetStateAction<string> } }) =>
+    setEmail(e.target.value);
+
+  const handlePasswordInput = (e: {
+    target: { value: SetStateAction<string> };
+  }) => setPassword(e.target.value);
 
   return (
-    <form
-      style={{
-        display: "flex",
-        flex: "1",
-        height: "100vh",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-      onSubmit={handleSubmit}
-    >
-      <input
-        type="text"
-        name="email"
-        value={inputs.email}
-        onChange={handleChange}
-        placeholder="E-mail"
-      />
-      <input
-        type="password"
-        name="password"
-        value={inputs.password}
-        onChange={handleChange}
-        placeholder="password"
-      />
-      <button>Submit</button>
-    </form>
+    <section className="login">
+      <h1>Employee Login</h1>
+
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "flex", flexDirection: "column" }}
+      >
+        <label htmlFor="email">email:</label>
+        <input
+          type="text"
+          id="email"
+          ref={emailRef}
+          value={email}
+          onChange={handleEmailInput}
+          autoComplete="off"
+          required
+        />
+
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          onChange={handlePasswordInput}
+          value={password}
+          required
+        />
+        <button style={{ marginTop: "20px" }}>Sign In</button>
+      </form>
+    </section>
   );
 };
-
 export default Login;
