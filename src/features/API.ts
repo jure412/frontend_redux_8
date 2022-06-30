@@ -26,7 +26,7 @@ export const baseQueryWithReauth = async (
 
   // const dispatch = useAppDispatch();
   if (result?.error?.originalStatus === 403) {
-    // console.log("sending refresh token");
+    console.log("sending refresh token");
     // send refresh token to get new access token
     const refreshResult: any = await baseQuery("/refresh", api, extraOptions);
     if (refreshResult.data) {
@@ -49,6 +49,6 @@ export const apiSlice = createApi({
   //     return action.payload[reducerPath]
   //   }
   // },
-  tagTypes: ["Auth", "User", "Post"],
+  tagTypes: ["Auth", "User", "Post", "Comment"],
   endpoints: (builder) => ({}),
 });

@@ -1,19 +1,18 @@
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
+import { selectMeResult } from "../../features/apis/Auth";
 import { useGetUsersQuery } from "../../features/apis/User";
 
 const Users = () => {
   const navigate = useNavigate();
-  const { data, isSuccess }: any = useGetUsersQuery(
-    {},
-    { skip: !localStorage.getItem("token") }
-  );
 
-  console.log({ data });
+  const { isSuccess: meIsSuccess }: any = useAppSelector(selectMeResult);
+  const { data }: any = useGetUsersQuery({}, { skip: !meIsSuccess });
 
   const content = (
     <section className="Users">
       <div>
-        {isSuccess &&
+        {data &&
           data[0]?.map((user: any) => (
             <p onClick={() => navigate(`/user/${user.id}`)} key={user.id}>
               {user.email}

@@ -10,7 +10,7 @@ export const postApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPosts: builder.query({
       query: (credentials: any) => ({
-        url: `/posts?skip=${credentials?.skip}&take=${credentials?.take}`,
+        url: `/posts?skip=${credentials?.skip}&take=${credentials?.take}&userId=${credentials?.userId}`,
         method: "GET",
       }),
       transformResponse: (responseData: any[] = [], args, meta) => {
@@ -58,19 +58,3 @@ export const {
 export const selectPostsResult: any = postApiSlice.endpoints.getPosts.select(
   {}
 );
-
-// Creates memoized selector
-// const selectUsersData = createSelector(
-//   selectUsersResult,
-//   (usersResult) => usersResult.data // normalized state object with ids & entities
-// );
-
-//getSelectors creates these selectors and we rename them with aliases using destructuring
-// export const {
-//   selectAll: selectAllUsers,
-//   selectById: selectUserById,
-//   selectIds: selectUserIds,
-//   // Pass in a selector that returns the posts slice of state
-// } = postAdapter.getSelectors(
-//   (state: any) => selectUsersData(state) ?? initialState
-// );
