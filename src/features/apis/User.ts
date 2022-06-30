@@ -1,10 +1,10 @@
-import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
-import { createApi } from "@reduxjs/toolkit/dist/query/react";
-import { apiSlice, baseQueryWithReauth } from "../API";
+import { createEntityAdapter } from "@reduxjs/toolkit";
+import { apiSlice } from "../API";
 
 const userAdapter = createEntityAdapter();
 
-const initialState = userAdapter.getInitialState();
+// const initialState =
+userAdapter.getInitialState();
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
