@@ -1,18 +1,11 @@
-import React, {
-  ChangeEvent,
-  FC,
-  FormEvent,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from "react";
 import { useGetMeQuery } from "../features/apis/Auth";
 import {
   useCreateCommentMutation,
   useGetCommentsQuery,
 } from "../features/apis/Comment";
 import { useLikeToggleMutation } from "../features/apis/Like";
-import { useDeletePostMutation, useGetPostsQuery } from "../features/apis/Post";
+import { useDeletePostMutation } from "../features/apis/Post";
 
 interface PostBoxProps {
   post: any;
@@ -58,6 +51,7 @@ const PostBox: FC<PostBoxProps> = ({ post }) => {
     createComment({ text: comment, postId: post.id });
   };
 
+  // eslint-disable-next-line
   useEffect(() => {
     setHeight(ref?.current!.clientHeight);
     setDropHeight(refDrop?.current!.clientHeight);
