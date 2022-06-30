@@ -28,11 +28,7 @@ const PostBox: FC<PostBoxProps> = ({ post }) => {
       skip: isToken,
     }
   );
-  const {
-    data: comments,
-    isSuccess: commentsIsSuccess,
-    commentsIsLoading,
-  }: any = useGetCommentsQuery(
+  const { data: comments, commentsIsLoading }: any = useGetCommentsQuery(
     {
       skip: take - 5,
       take: 5,
@@ -55,13 +51,6 @@ const PostBox: FC<PostBoxProps> = ({ post }) => {
   useEffect(() => {
     setHeight(ref?.current!.clientHeight);
     setDropHeight(refDrop?.current!.clientHeight);
-  });
-
-  console.log({
-    comments,
-    commentsIsSuccess,
-    commentsIsLoading,
-    cc: comments && comments[0],
   });
 
   return (
@@ -205,8 +194,8 @@ const PostBox: FC<PostBoxProps> = ({ post }) => {
           ) : (
             <>
               {comments &&
-                comments[0].map((post: any) => {
-                  return <div>{post.text}</div>;
+                comments[0].map((post: any, i: number) => {
+                  return <div key={i}>{post.text}</div>;
                 })}
               {comments && (
                 <div>

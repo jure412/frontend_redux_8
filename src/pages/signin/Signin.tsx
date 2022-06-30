@@ -42,7 +42,6 @@ const SignIn = () => {
   }, [isSuccess, navigate]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log({ e });
     setValues({
       ...values,
       [e.target.name]: e.target.value,

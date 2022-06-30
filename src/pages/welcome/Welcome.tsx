@@ -2,7 +2,6 @@ import { useGetMeQuery } from "../../features/apis/Auth";
 
 const Welcome = () => {
   const isToken: boolean = localStorage.getItem("token") ? false : true;
-  console.log({ t: isToken });
   const { data: user, isSuccess } = useGetMeQuery(
     {},
     {

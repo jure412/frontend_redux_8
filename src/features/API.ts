@@ -26,7 +26,6 @@ export const baseQueryWithReauth = async (
 
   // const dispatch = useAppDispatch();
   if (result?.error?.originalStatus === 403) {
-    console.log("sending refresh token");
     // send refresh token to get new access token
     const refreshResult: any = await baseQuery("/refresh", api, extraOptions);
     if (refreshResult.data) {
