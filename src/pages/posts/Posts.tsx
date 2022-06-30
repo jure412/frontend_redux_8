@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import PostBox from "../../components/PostBox";
 import { useGetMeQuery } from "../../features/apis/Auth";
 import {
   useCreatePostMutation,
-  useDeletePostMutation,
   useGetPostsQuery,
 } from "../../features/apis/Post";
 
@@ -22,21 +22,18 @@ const Posts = () => {
       take: 5,
     },
     {
-      skip: isToken,
+      skip: !user,
     }
   );
 
-  console.log({ user, posts });
-
   const [createPost] = useCreatePostMutation();
-  const [deletePost] = useDeletePostMutation();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createPost({ text: post });
   };
 
-  const content = (
+  return (
     <section className="Posts">
       <div>
         <form
@@ -62,41 +59,8 @@ const Posts = () => {
       </div>
       <div style={{ marginTop: "50px" }}>
         {postsSuccess &&
-          posts[0].map((post: any) => (
-            <div
-              style={{ background: "grey", padding: "5px", margin: "10px 0" }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                {user.id === post.user.id && (
-                  <p
-                    style={{
-                      color: "#fff",
-                      backgroundColor: "red",
-                      width: "70px",
-                      textAlign: "center",
-                    }}
-                    onClick={() => {
-                      deletePost({ id: post.id });
-                    }}
-                  >
-                    Delete
-                  </p>
-                )}
-                <p
-                  style={{
-                    fontSize: "12px",
-                    marginLeft: "auto",
-                  }}
-                >{`${post.user.firstName} ${post.user.lastName}`}</p>
-              </div>
-              <p>{post.text}</p>
-            </div>
+          posts[0].map((post: any, i: number) => (
+            <PostBox key={i} post={post} />
           ))}
       </div>
       {posts && (
@@ -115,7 +79,5 @@ const Posts = () => {
       )}
     </section>
   );
-
-  return content;
 };
 export default Posts;
