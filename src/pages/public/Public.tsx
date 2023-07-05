@@ -2,7 +2,7 @@ const Public = () => {
   const content = (
     <section className="public">
       <header>
-        <h1>Welcome Boys!</h1>
+        <h1>Welcome People!</h1>
       </header>
     </section>
   );

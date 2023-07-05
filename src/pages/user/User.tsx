@@ -10,7 +10,7 @@ const User = () => {
   const { id } = useParams<{ id: string }>();
   const [take, setTake] = useState<number>(5);
   const [likeToggle] = useLikeToggleMutation();
-  const { data: me } = useAppSelector(selectMeResult);
+  const { data: me } = useAppSelector<any>(selectMeResult);
   const { data: user, isSuccess }: any = useGetUserQuery({ id }, { skip: !me });
 
   const { data: posts, isSuccess: postsSuccess }: any = useGetPostsQuery(

@@ -1,8 +1,8 @@
-import { useRef, useState, useEffect, ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreateMeMutation } from "../../features/apis/Auth";
 
-const SignIn = () => {
+const SignUp = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const [values, setValues] = useState({
     email: "",
@@ -49,7 +49,7 @@ const SignIn = () => {
   };
 
   return (
-    <section className="Signin">
+    <section className="SignUp">
       <h1>Employee Signin</h1>
 
       <form
@@ -94,11 +94,11 @@ const SignIn = () => {
           value={values.password}
           required
         />
-        <button style={{ marginTop: "20px" }}>Sign In</button>
+        <button style={{ marginTop: "20px" }}>Sign up</button>
       </form>
     </section>
   );
 
   // return content;
 };
-export default SignIn;
+export default SignUp;

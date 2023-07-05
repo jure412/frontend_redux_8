@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { config } from "../config";
 import { setMsg } from "./Slices/msgSlice";
-// import { REHYDRATE } from 'redux-persist'
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: config.api,
@@ -15,8 +14,6 @@ export const baseQuery = fetchBaseQuery({
   },
 });
 
-// eslint-disable-next-line react-hooks/rules-of-hooks
-
 export const baseQueryWithReauth = async (
   args: any,
   api: any,
@@ -24,7 +21,6 @@ export const baseQueryWithReauth = async (
 ) => {
   let result: any = await baseQuery(args, api, extraOptions);
 
-  // const dispatch = useAppDispatch();
   if (result?.error?.originalStatus === 403) {
     // send refresh token to get new access token
     const refreshResult: any = await baseQuery("/refresh", api, extraOptions);
@@ -43,11 +39,6 @@ export const baseQueryWithReauth = async (
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  // extractRehydrationInfo(action, { reducerPath }) {
-  //   if (action.type === REHYDRATE) {
-  //     return action.payload[reducerPath]
-  //   }
-  // },
   tagTypes: ["Auth", "User", "Post", "Comment"],
   endpoints: (builder) => ({}),
 });

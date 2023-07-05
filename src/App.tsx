@@ -7,7 +7,7 @@ import Login from "./pages/login/Login";
 import Page404 from "./pages/page404/Page404";
 import Posts from "./pages/posts/Posts";
 import Public from "./pages/public/Public";
-import SignIn from "./pages/signin/Signin";
+import SignUp from "./pages/signup/Signup";
 import User from "./pages/user/User";
 import Users from "./pages/users/Users";
 import Welcome from "./pages/welcome/Welcome";
@@ -19,7 +19,7 @@ function App() {
         <Route element={<RequirePublic />}>
           <Route index element={<Public />} />
           <Route path="login" element={<Login />} />
-          <Route path="signin" element={<SignIn />} />
+          <Route path="signup" element={<SignUp />} />
         </Route>
         <Route element={<RequireAuth />}>
           <Route path="welcome" element={<Welcome />} />

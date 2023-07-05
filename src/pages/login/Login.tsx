@@ -1,12 +1,12 @@
-import { useRef, useState, useEffect, SetStateAction } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../features/apis/Auth";
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
-  const [email, setEmail] = useState("jure@gmail.com");
-  const [password, setPassword] = useState("12345678");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 

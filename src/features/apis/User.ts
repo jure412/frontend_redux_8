@@ -35,19 +35,3 @@ export const { useGetUsersQuery, useLazyGetUsersQuery, useGetUserQuery } =
 
 // returns the query result object
 export const selectUsersResult: any = userApiSlice.endpoints.getUsers.initiate;
-
-// Creates memoized selector
-// const selectUsersData = createSelector(
-//   selectUsersResult,
-//   (usersResult) => usersResult.data // normalized state object with ids & entities
-// );
-
-//getSelectors creates these selectors and we rename them with aliases using destructuring
-// export const {
-//   selectAll: selectAllUsers,
-//   selectById: selectUserById,
-//   selectIds: selectUserIds,
-//   // Pass in a selector that returns the posts slice of state
-// } = userAdapter.getSelectors(
-//   (state: any) => selectUsersData(state) ?? initialState
-// );

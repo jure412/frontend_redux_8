@@ -6,7 +6,7 @@ import { apiSlice } from "../features/API";
 import { selectMeResult, useLogoutMutation } from "../features/apis/Auth";
 
 const Header: React.FC = () => {
-  const { isSuccess }: any = useSelector(selectMeResult);
+  const { isSuccess }: { isSuccess: boolean } = useSelector(selectMeResult);
   const [logout] = useLogoutMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -43,8 +43,8 @@ const Header: React.FC = () => {
             <Link style={{ margin: "0 1rem 0 0" }} to="/login">
               Login
             </Link>
-            <Link style={{ margin: "0 1rem 0 0" }} to="/signin">
-              Signin
+            <Link style={{ margin: "0 1rem 0 0" }} to="/signup">
+              Signup
             </Link>
           </>
         )}

@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { getMsgs, MsgState, removeMsgs } from "../features/Slices/msgSlice";
+import { MsgState, getMsgs, removeMsgs } from "../features/Slices/msgSlice";
 
 export const Msg: FC = () => {
   const msgs = useAppSelector(getMsgs);
